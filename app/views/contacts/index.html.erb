@@ -1,13 +1,18 @@
 <h1>All Contacts</h1>
-<div class="row">
-  <% @contacts.each do |contact| %>
-    <div class="col-md-4">
-    <h2><%= contact.first_name %> <%= contact.last_name %></h2>
-    <h3>Email: <%= contact.email%></h3> 
-    <h4>Phone Number: <%= contact.phone_number%></h4>
-    <p><a href="/contacts/<%= contact.id %>" type="button" class="btn btn-default btn-md">More Info</a></p>
-    </div>
-  <% end %>
-</div>
+<% @contacts.each_slice(3) do |three_contacts|%>
+  <div class="row">
+    <% three_contacts.each do |contact| %>
+      <div class="col-md-4">
+        <div class="well">
+          <h2><%= contact.first_name %> <%= contact.last_name %></h2>
+          <h3>Email: <%= contact.email%></h3> 
+          <h4>Phone Number: <%= contact.phone_number%></h4>
+          <p><a href="/contacts/<%= contact.id %>" type="button" class="btn btn-default btn-md">More Info</a></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
 
 <h4><a href="/contacts/new" type="button" class="btn btn-primary btn-lg">Add New Contact</a></h4>
