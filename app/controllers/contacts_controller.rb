@@ -9,15 +9,13 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @first_name = params["first_name"]
-    @last_name = params["last_name"]
-    @email = params["email"]
-    @phone_number = params["phone_number"]
     new_contact = Contact.new(
-      first_name: @first_name,
-      last_name: @last_name,
-      email: @email,
-      phone_number: @phone_number
+      first_name: params["first_name"],
+      middle_name: params["middle_name"],
+      last_name: params["last_name"],
+      email: params["email"],
+      phone_number: params["phone_number"],
+      bio: params["bio"]
       )
     new_contact.save
     flash[:success] = "Contact successfully created!"
@@ -37,9 +35,11 @@ class ContactsController < ApplicationController
   def update
     @contact = Contact.find_by(id: params[:id])   
     @contact.first_name = params[:first_name]
+    @contact.middle_name = params[:middle_name]
     @contact.last_name = params[:last_name]
     @contact.email = params[:email]
     @contact.phone_number = params[:phone_number]
+    @contact.bio = params[:bio]
     @contact.save 
     flash[:success] = "Contact successfully updated!"
     redirect_to "/contacts/#{@contact.id}"

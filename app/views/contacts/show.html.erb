@@ -4,9 +4,11 @@
   <div class="col-md-8">
     <div class="well">
       <h1>Contact Information</h1>
-      <h2><%= @contact.full_name %></h2>
+      <h2><%= @contact.first_name %> <%= @contact.middle_name %> <%= @contact.last_name %></h2>
       <h3>Email: <%= @contact.email %></h3>
       <h3>Phone Number: <%= @contact.phone_number %></h3>
+      <h4>Bio: <%= @contact.bio %></h4>
+
       <p>Contact last updated on: <%= @contact.last_update %>.</p>
 
       <div class="row">
