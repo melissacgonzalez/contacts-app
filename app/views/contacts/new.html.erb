@@ -1,22 +1,46 @@
-<div class="row">
-  <div class="col-md-3">
+<div class="well">
+  <div class="row">
+    <div class="col-md-12"><h1>Add New Contact</h1></div>
   </div>
-  <div class="col-md-6">
-    <div class="well">
-      <h1>Add New Contact</h1>
-      <%= form_tag "/contacts", method: :post do %>
-        <div class="form-group">First Name: <input type="text" name="first_name"></div>
-        <div class="form-group">Middle Name: <input type="text" name="middle_name"></div>
-        <div class="form-group">Last Name: <input type="text" name="last_name"></div>
-        <div class="form-group">Email: <input type="text" name="email"></div>
-        <div class="form-group">Phone Number: <input type="text" name="phone_number"></div>
-        <div class="form-group">
-          <div>Bio:</div>
-          <div> <textarea name="bio" cols="30" rows="10"></textarea></div>
-        <div class="form-group"><input type="submit" value="Create New Contact" class="btn btn-primary btn-md"> <a href="/contacts" class="btn btn-default btn-md">Cancel</a></div>
-      <% end %>
+  <%= form_tag "/contacts", method: :post do %>
+  <div class="row">    
+    <div class="col-md-4">
+      <div class="form-group"><label>First Name: </label>
+        <input type="text" name="first_name" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group"><label>Middle Name: </label>
+        <input type="text" name="middle_name" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group"><label>Last Name:</label> 
+        <input type="text" name="last_name" class="form-control">
+      </div>
+    </div>  
+  </div>
+  <div class="row">    
+    <div class="col-md-6">
+      <div class="form-group"><label>Email:</label>
+        <input type="text" name="email" class="form-control">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group"><label>Phone Number:</label>
+        <input type="text" name="phone_number" class="form-control">
+      </div>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Bio:</label>
+        <textarea name="bio" cols="30" rows="10" class="form-control"></textarea>
+      </div>
+      <div class="form-group"><input type="submit" value="Create New Contact" class="btn btn-primary btn-md"> <a href="/contacts" class="btn btn-default btn-md">Cancel</a></div>
+    </div>
   </div>
+
+  <% end %>
 </div>

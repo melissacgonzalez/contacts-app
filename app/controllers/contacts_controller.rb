@@ -1,14 +1,27 @@
 class ContactsController < ApplicationController
   def index
-    search = params[:search_terms]
-    if search
-      @contacts = Contact.where("first_name ILIKE ? OR last_name ILIKE ? OR middle_name ILIKE ? OR email ILIKE ? OR bio ILIKE ? OR phone_number LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
-    else
-      @contacts = Contact.all
-    end
-    
+    if current_user
+      search = params[:search_terms]
+      if search
+        @contacts = current_user.contacts.where(
+          "first_name ILIKE ? OR last_name ILIKE ? OR middle_name ILIKE ? 
+          OR email ILIKE ? OR bio ILIKE ? OR phone_number LIKE ?", 
+          "%#{search}%", "%#{search}%", "%#{search}%", 
+          "%#{search}%", "%#{search}%", "%#{search}%")
+      else
+        @contacts = current_user.contacts.order(:last_name)
+      end
 
-    render "index.html.erb"   
+      if params[:group]
+        group = Group.find_by(name: params[:group])
+        @contacts = group.contacts.where("user_id = ?", current_user.id)
+      end
+
+
+      render "index.html.erb"   
+    else
+      redirect_to "/signup"
+    end
   end
 
   def new
@@ -22,7 +35,8 @@ class ContactsController < ApplicationController
       last_name: params["last_name"],
       email: params["email"],
       phone_number: params["phone_number"],
-      bio: params["bio"]
+      bio: params["bio"],
+      user_id: current_user.id
       )
     new_contact.save
     flash[:success] = "Contact successfully created!"

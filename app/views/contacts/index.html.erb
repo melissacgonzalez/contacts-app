@@ -1,4 +1,4 @@
-<h1>All Contacts</h1>
+<h1>My Contacts</h1>
 <% @contacts.each_slice(3) do |three_contacts|%>
   <div class="row">
     <% three_contacts.each do |contact| %>
@@ -13,6 +13,3 @@
     <% end %>
   </div>
 <% end %>
-
-
-<h4><a href="/contacts/new" type="button" class="btn btn-primary btn-lg">Add New Contact</a></h4>

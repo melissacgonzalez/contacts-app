@@ -1,4 +1,8 @@
 class Contact < ApplicationRecord
+  belongs_to :user
+  has_many :contact_groups
+  has_many :groups, through: :contact_groups
+  
   def last_update
     updated_at.strftime("%B %e, %Y")
   end
