@@ -34,8 +34,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contact Groups <span class="caret"></span></a>
             <ul class="dropdown-menu">
 
-              <% Group.all.each do |group|%>
-                <li><a href="/contacts?group=<%= group.name %>"><%= group.name %></a></li>
+              <% current_user.contact_group_names.each do |group_name|%>
+                <li><a href="/contacts?group=<%= group_name %>"><%= group_name %></a></li>
               <% end %>
               
               <li role="separator" class="divider"></li>

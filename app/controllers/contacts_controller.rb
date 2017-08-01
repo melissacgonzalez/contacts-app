@@ -16,20 +16,20 @@ class ContactsController < ApplicationController
         group = Group.find_by(name: params[:group])
         @contacts = group.contacts.where("user_id = ?", current_user.id)
       end
-
-
       render "index.html.erb"   
+      
     else
       redirect_to "/signup"
     end
   end
 
   def new
+    @contact = Contact.new
     render "new.html.erb"
   end
 
   def create
-    new_contact = Contact.new(
+    @contact = Contact.new(
       first_name: params["first_name"],
       middle_name: params["middle_name"],
       last_name: params["last_name"],
@@ -38,9 +38,12 @@ class ContactsController < ApplicationController
       bio: params["bio"],
       user_id: current_user.id
       )
-    new_contact.save
-    flash[:success] = "Contact successfully created!"
-    redirect_to "/contacts/#{new_contact.id}"
+    if @contact.save
+      flash[:success] = "Contact successfully created!"
+      redirect_to "/contacts/#{@contact.id}"
+    else
+      render "new.html.erb"
+    end
   end
 
   def show
@@ -61,9 +64,12 @@ class ContactsController < ApplicationController
     @contact.email = params[:email]
     @contact.phone_number = params[:phone_number]
     @contact.bio = params[:bio]
-    @contact.save 
-    flash[:success] = "Contact successfully updated!"
-    redirect_to "/contacts/#{@contact.id}"
+    if @contact.save 
+      flash[:success] = "Contact successfully updated!"
+      redirect_to "/contacts/#{@contact.id}"
+    else
+      render "edit.html.erb"
+    end
   end
 
   def destroy
